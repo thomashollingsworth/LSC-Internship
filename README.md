@@ -30,6 +30,7 @@
 
 
 <img src="SolovEvPlots/solution.png" alt="Solov'Ev Plot" width="300"/>
+<p align="center"><em>Figure 3: Sparse Linear solver solution to Solov'Ev equation</em></p>
     
 
 
