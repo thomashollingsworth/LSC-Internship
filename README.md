@@ -11,8 +11,19 @@
   - Validation of sovlers using Brio-Wu (shock tube) tests in 1 and 2D
   - Further validation using Orszang Tang and Kelvin-Helmholtz tests
 
+<table>
+  <tr>
+    <td>
+      <img src="KelvinHelmholtz/BxGif.gif" alt="Kelvin-Helmholtz Animation" width="300"/><br/>
+      <p align="center"><em>Figure 1: Animation of B_x field for Kelvin-Helmholtz Instability test using MUSCL-Hancock Scheme</em></p>
+    </td>
+    <td>
+      <img src="OrszangTangPlots/DensityGif.gif" alt="Orszang-Tang Animation" width="300"/><br/>
+      <p align="center"><em>Figure 2: Animation of Density for Orszang-Tang vortex using MUSCL-Hancock Scheme</em></p>
+    </td>
+  </tr>
+</table>
 
-<img src="KelvinHelmholtz/BxGif.gif" alt="Kelvin-Helmholtz Animation" width="300"/>
 
 ## Linear Solver for Solov'Ev equation
   - Using C++ eigen library to solve sparse linear Solov'ev equation in 2D (axisymmetric case)
