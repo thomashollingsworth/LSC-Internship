@@ -11,7 +11,8 @@
   - Validation of sovlers using Brio-Wu (shock tube) tests in 1 and 2D
   - Further validation using Orszang Tang and Kelvin-Helmholtz tests
 
-![Animation](KelvinHelmholtz/BxGif.gif)
+
+<img src="KelvinHelmholtz/BxGif.gif" alt="Kelvin-Helmholtz Animation" width="300"/>
 
 ## Linear Solver for Solov'Ev equation
   - Using C++ eigen library to solve sparse linear Solov'ev equation in 2D (axisymmetric case)
