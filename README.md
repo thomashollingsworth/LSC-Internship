@@ -28,10 +28,10 @@
 ## Linear Solver for Solov'Ev equation
   - Using C++ eigen library to solve sparse linear Solov'ev equation in 2D (axisymmetric case)
 
-
+<td>
 <img src="SolovEvPlots/solution.png" alt="Solov'Ev Plot" width="300"/>
 <p align="center"><em>Figure 3: Sparse Linear solver solution to Solov'Ev equation</em></p>
-    
+</td> 
 
 
 
