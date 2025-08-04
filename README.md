@@ -1,10 +1,10 @@
 # Internship with Cambridge Laboratory for Scientific Computing
 
-## Solving Euler equations in 1 and 2D
+## Solving Euler equations in 1D & 2D
   - Using Lax Friedrichs + Richtymer fluxes and First ORder CEntered (FORCE) scheme
   - Incorporated SLIC (slope limiting) with MinBee limiter
 
-## MHD Solvers in 1 and 2D
+## MHD Solvers in 1D & 2D
   - Created Godunov solvers using HLL and HLLC (2 wave and 3 wave approximations of exact Riemann problem)
   - Incorporated Van-Leer slope limiting -> MUSCL-Hancock scheme
   - Implemented Divergence Cleaning
