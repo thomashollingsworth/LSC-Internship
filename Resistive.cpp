@@ -6,6 +6,11 @@
 #include <cstdlib>
 #include <filesystem>  // C++17
 #include <initializer_list>
+#include <initializer_list>
+
+#include <Eigen/Sparse>
+using namespace Eigen; //Preferentially uses Eigen library functions in case of conflicts
+typedef Triplet<double> T; //Shorthand for the eigen Triplet class which stores data as (row,column,value) where the data is of double type
 
 typedef std::array< double ,8> StateVector;
 
@@ -76,7 +81,7 @@ outfile<<"\n"; //Blank line between y rows for correct gnuplot formatting
 
 
 void update_bcs(std::vector<std::vector<StateVector > >& u,double num_xcells,double num_ycells){
-    // // Periodic 2D
+    // // Periodic 2D (Orszang Tang Test)
     // u[0]=u[num_xcells];
     // u[1]=u[num_xcells+1];
     // u[num_xcells+2]= u[2];
