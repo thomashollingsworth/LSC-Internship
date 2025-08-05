@@ -7,7 +7,7 @@
 #include <filesystem>  // C++17
 #include <initializer_list>
 
-typedef std::array< double ,9> StateVector;
+typedef std::array< double ,8> StateVector;
 
 StateVector primitiveToConservative(const StateVector& prim,double gamma){
     //Prim: rho,v_x,v_y,v_z,p,B_x,B_y,B_z (B_x is const.)
@@ -21,7 +21,7 @@ StateVector primitiveToConservative(const StateVector& prim,double gamma){
     conserved[5]=prim[5];
     conserved[6]=prim[6];
     conserved[7]=prim[7];
-    conserved[8]=prim[8];
+ 
 
     return conserved;
 
@@ -39,7 +39,7 @@ StateVector conservativeToPrimitive(const StateVector& conserved,double gamma){
     prim[5]=conserved[5];
     prim[6]=conserved[6];
     prim[7]=conserved[7];
-    prim[8]=conserved[8];
+
 
     return prim;
 
@@ -62,7 +62,7 @@ void save_to_file(std::vector<std::vector<StateVector > >& u,std::vector<double>
 
     for(size_t j=2; j<num_ycells+2;j++){
         for(size_t i=2; i<num_xcells+2;i++){
-            outfile << x[i] << " " << y[j] << " " << output[i][j][0] << " "<< output[i][j][1]<< " "<< output[i][j][2]<< " "<< output[i][j][3]<< " "<< output[i][j][4]<< " "<< output[i][j][5]<< " "<< output[i][j][6]<< " "<< output[i][j][7]<< " "<< output[i][j][8]<<"\n";
+            outfile << x[i] << " " << y[j] << " " << output[i][j][0] << " "<< output[i][j][1]<< " "<< output[i][j][2]<< " "<< output[i][j][3]<< " "<< output[i][j][4]<< " "<< output[i][j][5]<< " "<< output[i][j][6]<< " "<< output[i][j][7]<< "\n";
 }
 outfile<<"\n"; //Blank line between y rows for correct gnuplot formatting
 
@@ -140,7 +140,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[5]=0.75;
         //     prim[6]=-1.;
         //     prim[7]=0.0;
-        //     prim[8]=0.;
+ 
         // }
         // else if(x[i]<=400 && y[j]>400){
         //     //top left corner
@@ -152,7 +152,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[5]=0.75;
         //     prim[6]=-1.;
         //     prim[7]=0.0;
-        //     prim[8]=0.;
+ 
         // }
         // else if(x[i]>400 && y[j]<400){
         //     //bottom right corner
@@ -164,7 +164,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[5]=0.75;
         //     prim[6]=1.;
         //     prim[7]=0.;
-        //     prim[8]=0.;
+ 
             
         // }else if(x[i]>400 && y[j]>400){
         //     //top right corner
@@ -176,7 +176,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[5]=0.75;
         //     prim[6]=1.;
         //     prim[7]=0.;
-        //     prim[8]=0.;
+ 
         // }
         
         
@@ -191,7 +191,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.;
         //     prim[5]=0.;
         //     prim[7]=0.;
-        //     prim[8]=0.;
+ 
         // }
         // else if(x[i]<=400 && y[j]>400){
         //     //top left corner
@@ -203,7 +203,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.;
         //     prim[5]=0.;
         //     prim[7]=0.0;
-        //     prim[8]=0.;
+ 
         // }
         // else if(x[i]>400 && y[j]<400){
         //     //bottom right corner
@@ -215,7 +215,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.;
         //     prim[5]=0.;
         //     prim[7]=0.;
-        //     prim[8]=0.;
+ 
         // }else if(x[i]>400 && y[j]>400){
         //     //top right corner
         //     prim[0]=0.125;
@@ -226,7 +226,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.;
         //     prim[5]=0.;
         //     prim[7]=0.0;
-        //     prim[8]=0.;
+ 
         // }
 
 
@@ -241,7 +241,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.75;
         //     prim[5]=1.;
         //     prim[7]=0.;
-        //     prim[8]=0.;
+ 
         // }
         // else if(x[i]<=400 && y[j]>400){
         //     //top left corner
@@ -253,7 +253,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.75;
         //     prim[5]=-1.;
         //     prim[7]=0.0;
-        //     prim[8]=0.;
+ 
         // }
         // else if(x[i]>400 && y[j]<400){
         //     //bottom right corner
@@ -265,7 +265,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.75;
         //     prim[5]=1.;
         //     prim[7]=0.;
-        //     prim[8]=0.;
+ 
         // }else if(x[i]>400 && y[j]>400){
         //     //top right corner
         //     prim[0]=0.125;
@@ -276,7 +276,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         //     prim[6]=0.75;
         //     prim[5]=-1.;
         //     prim[7]=0.0;
-        //     prim[8]=0.;
+ 
         // }
 
         
@@ -289,7 +289,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         // prim[5]=-std::sin(2*pi*y[j]);
         // prim[6]=std::sin(4*pi*x[i]);
         // prim[7]=0;
-        // prim[8]=0;
+
 
         // //Orszang-Tang vortex test
         // prim[0]=gamma*gamma;
@@ -300,7 +300,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         // prim[5]=-std::sin(2*pi*y[j]);
         // prim[6]=std::sin(4*pi*x[i]);
         // prim[7]=0;
-        // prim[8]=0;
+
 
         //Kelvin-Helmholtz
         prim[0] = 1.0; // Density
@@ -311,7 +311,7 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         prim[5] = 0.1*std::cos(pi/3.0); // magnetic field
         prim[6] = 0.0;
         prim[7] = 0.1*std::sin(pi/3.0);
-        prim[8] = 0;
+
 
 
 
@@ -333,8 +333,8 @@ StateVector MHD_xflux(const StateVector& u0,double gamma,double c_h){
     flux[3]= prim[0]*prim[1]*prim[3]-prim[5]*prim[7];
     flux[4]=(u0[4]+prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[1]-(prim[1]*prim[5]+prim[2]*prim[6]+prim[3]*prim[7])*prim[5];
 
-    flux[5]=u0[8];
-    flux[8]=u0[5]*c_h*c_h;
+    flux[5]=0;
+
     
     
     
@@ -357,10 +357,10 @@ StateVector MHD_yflux(const StateVector& u0,double gamma,double c_h){
     flux[3]= prim[0]*prim[2]*prim[3]-prim[6]*prim[7];
     flux[4]=(u0[4]+prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[2]-(prim[1]*prim[5]+prim[2]*prim[6]+prim[3]*prim[7])*prim[6];
     flux[5]=-(prim[6]*prim[1]-prim[2]*prim[5]);
-    flux[6]=u0[8];
+    flux[6]=0;
     flux[7]=-(prim[6]*prim[3]-prim[2]*prim[7]);
     
-    flux[8]=u0[6]*c_h*c_h;
+
     
     return flux;
 
@@ -439,7 +439,7 @@ StateVector get_u_HLL_x(const StateVector& u_L,const StateVector& u_R, double ga
     StateVector f_R=MHD_xflux(u_R,gamma,c_h);
     StateVector u_HLL;
 
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
         u_HLL[i]=1/(S_R-S_L)*(S_R*u_R[i]-S_L*u_L[i]+f_L[i]-f_R[i]);
     }
 
@@ -459,7 +459,7 @@ StateVector get_u_HLL_y(const StateVector& u_L,const StateVector& u_R, double ga
     StateVector f_R=MHD_yflux(u_R,gamma, c_h);
     StateVector u_HLL;
 
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
         u_HLL[i]=1/(S_R-S_L)*(S_R*u_R[i]-S_L*u_L[i]+f_L[i]-f_R[i]);
     }
 
@@ -472,7 +472,7 @@ StateVector get_u_HLL_y(const StateVector& u_L,const StateVector& u_R, double ga
     }
 }
 
-StateVector get_u_star_x(const StateVector& u_L,const StateVector& u_R, double gamma,bool L,double B_xtilde,double psi_tilde, double S_L, double S_R,double c_h){
+StateVector get_u_star_x(const StateVector& u_L,const StateVector& u_R, double gamma,bool L,double S_L, double S_R,double c_h){
     //L bool dictates whether you are calculating u_starL or u_starR 
     //Everything here should have BxL=BxR= Bxtilde apart from the S_L and S_R calcs
     
@@ -519,12 +519,12 @@ StateVector get_u_star_x(const StateVector& u_L,const StateVector& u_R, double g
     
     u_star[4]=u[4]*(S-prim[1])/(S-q_star)+((p_star*q_star-(prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[1])-(u_star[5]*(prim_HLL[5]*prim_HLL[1]+prim_HLL[6]*prim_HLL[2]+prim_HLL[7]*prim_HLL[3])-prim[5]*(prim[5]*prim[1]+prim[6]*prim[2]+prim[7]*prim[3])))/(S-q_star);
 
-    u_star[8]=psi_tilde;
+
     
     return u_star;
 }
 
-StateVector get_u_star_y(const StateVector& u_L,const StateVector& u_R, double gamma,bool L,double B_ytilde,double psi_tilde, double S_L, double S_R,double c_h){
+StateVector get_u_star_y(const StateVector& u_L,const StateVector& u_R, double gamma,bool L,double S_L, double S_R,double c_h){
     //L bool dictates whether you are calculating u_starL or u_starR 
     
     StateVector u_HLL=get_u_HLL_y(u_L,u_R,gamma,c_h);
@@ -567,7 +567,7 @@ StateVector get_u_star_y(const StateVector& u_L,const StateVector& u_R, double g
     double p_star= prim[0]*(S-prim[2])*(q_star-prim[2])+prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7])-prim[6]*prim[6]+u_star[6]*u_star[6];
     
     u_star[4]=u[4]*(S-prim[2])/(S-q_star)+((p_star*q_star-(prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[2])-(u_star[6]*(prim_HLL[5]*prim_HLL[1]+prim_HLL[6]*prim_HLL[2]+prim_HLL[7]*prim_HLL[3])-prim[6]*(prim[5]*prim[1]+prim[6]*prim[2]+prim[7]*prim[3])))/(S-q_star);
-    u_star[8]=psi_tilde;
+  
     return u_star;
 }
 
@@ -602,40 +602,24 @@ return C* std::min(dx,dy)/(c_h);
 }
 
 
-std::tuple< double,double > get_xtilde_vals(const StateVector& uL, const StateVector& uR,double gamma,double c_h){
-    
-    double Bx_tilde = 0.5*(uL[5]+uR[5])-0.5*1./c_h*(uR[8]-uL[8]);
-    double psi_tilde= 0.5*(uL[8]+uR[8])-c_h/2.*(uR[5]-uL[5]);
-    return {Bx_tilde,psi_tilde};
 
-}
 
-std::tuple< double,double > get_ytilde_vals(const StateVector& uL, const StateVector& uR,double gamma,double c_h){
-    
-    double By_tilde = 0.5*(uL[6]+uR[6])-0.5*1./c_h*(uR[8]-uL[8]);
-    double psi_tilde= 0.5*(uL[8]+uR[8])-c_h/2.*(uR[6]-uL[6]);
-    return {By_tilde,psi_tilde};
 
-}
+
 
 StateVector get_HLLC_flux_x(StateVector u_L,StateVector u_R, double gamma,double c_h){
     //gets flux between L and R position
     
     
-    auto[B_tilde,psi_tilde]=get_xtilde_vals(u_L,u_R,gamma,c_h);
     auto [S_L,S_R]= get_S_LR_x(u_L,u_R,gamma);
 
-    u_L[5]=B_tilde;
-    u_R[5]=B_tilde;
-    u_L[8] = psi_tilde;
-	u_R[8] = psi_tilde;
     
     
     StateVector f_L=MHD_xflux(u_L,gamma,c_h);
     StateVector f_R=MHD_xflux(u_R,gamma,c_h);
     
-    StateVector u_starL=get_u_star_x(u_L,u_R,gamma,true,B_tilde,psi_tilde, S_L,S_R,c_h);
-    StateVector u_starR=get_u_star_x(u_L,u_R,gamma,false,B_tilde,psi_tilde,S_L,S_R,c_h);
+    StateVector u_starL=get_u_star_x(u_L,u_R,gamma,true,S_L,S_R,c_h);
+    StateVector u_starR=get_u_star_x(u_L,u_R,gamma,false,S_L,S_R,c_h);
 
     double q_star= u_starL[1]/u_starL[0];
     StateVector flux_out;
@@ -645,10 +629,10 @@ StateVector get_HLLC_flux_x(StateVector u_L,StateVector u_R, double gamma,double
         flux_out=f_L;
 
     }else if(S_L<0 && q_star>=0){
-        for(size_t i=0;i<9;i++){
+        for(size_t i=0;i<8;i++){
         flux_out[i]=f_L[i]+S_L*(u_starL[i]-u_L[i]);
     }}else if(q_star<=0 && 0<=S_R){
-        for(size_t i=0;i<9;i++){
+        for(size_t i=0;i<8;i++){
         flux_out[i]=f_R[i]+S_R*(u_starR[i]-u_R[i]);
 
     }}else {
@@ -657,40 +641,23 @@ StateVector get_HLLC_flux_x(StateVector u_L,StateVector u_R, double gamma,double
     
     
 
-    // flux_out[5]=0;
-    // flux_out[8]=0;
+
 
     
 
     return flux_out;
 
-
-    // std::vector<double> fluxHLL(9);
-    // for(size_t i=0;i<9;i++){
-    //     fluxHLL[i]=(S_R*f_L[i]-S_L*f_R[i] +S_L*S_R*(u_R[i]-u_L[i]))/(S_R-S_L);
-    // }
-    // fluxHLL[5]=psi_tilde;
-    // fluxHLL[8]=B_tilde*c_h*c_h;
-    // return fluxHLL;
 }
 
 StateVector get_HLLC_flux_y(StateVector u_L,StateVector u_R, double gamma,double c_h){
     //gets flux between L and R position
-    auto[B_tilde,psi_tilde]=get_ytilde_vals(u_L,u_R,gamma,c_h);
-    auto [S_L,S_R]= get_S_LR_y(u_L,u_R,gamma);
 
-    u_L[6]=B_tilde;
-    u_R[6]=B_tilde;
-    u_L[8] = psi_tilde;
-	u_R[8] = psi_tilde;
-    
-    
-    
-    
+    auto [S_L,S_R]= get_S_LR_y(u_L,u_R,gamma);
+  
     StateVector f_L=MHD_yflux(u_L,gamma,c_h);
     StateVector f_R=MHD_yflux(u_R,gamma,c_h);
-    StateVector u_starL=get_u_star_y(u_L,u_R,gamma,true,B_tilde,psi_tilde,S_L,S_R,c_h);
-    StateVector u_starR=get_u_star_y(u_L,u_R,gamma,false,B_tilde,psi_tilde, S_L,S_R,c_h);
+    StateVector u_starL=get_u_star_y(u_L,u_R,gamma,true,S_L,S_R,c_h);
+    StateVector u_starR=get_u_star_y(u_L,u_R,gamma,false, S_L,S_R,c_h);
 
     double q_star= u_starL[2]/u_starL[0];
     StateVector flux_out;
@@ -699,31 +666,16 @@ StateVector get_HLLC_flux_y(StateVector u_L,StateVector u_R, double gamma,double
     if(S_L>=0){
         flux_out=f_L;
     }else if(S_L<0 && q_star>=0){
-        for(size_t i=0;i<9;i++){
+        for(size_t i=0;i<8;i++){
         flux_out[i]=f_L[i]+S_L*(u_starL[i]-u_L[i]);
     }}else if(q_star<=0 && 0<=S_R){
-        for(size_t i=0;i<9;i++){
+        for(size_t i=0;i<8;i++){
         flux_out[i]=f_R[i]+S_R*(u_starR[i]-u_R[i]);
     }}else {
         flux_out=f_R; 
     }
 
-
-    flux_out[6]=psi_tilde;
-    flux_out[8]=B_tilde*c_h*c_h;
-
-    // flux_out[6]=0;
-    // flux_out[8]=0;
-
     return flux_out;
-
-    // std::vector<double> fluxHLL(9);
-    // for(size_t i=0;i<9;i++){
-    //     fluxHLL[i]=(S_R*f_L[i]-S_L*f_R[i] +S_L*S_R*(u_R[i]-u_L[i]))/(S_R-S_L);
-    // }
-    // fluxHLL[6]=psi_tilde;
-    // fluxHLL[8]=B_tilde*c_h*c_h;
-    // return fluxHLL;
 }
 
 
@@ -732,14 +684,14 @@ StateVector get_HLLC_flux_y(StateVector u_L,StateVector u_R, double gamma,double
 StateVector getDelta_plus(const StateVector& u_0, const StateVector& u_plus){
 
     StateVector delta_plus;
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
         delta_plus[i]=u_plus[i]-u_0[i];
     }
     return delta_plus;
 }
 StateVector getDelta_minus(const StateVector& u_minus, const StateVector& u_0){
     StateVector delta_minus;
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
         delta_minus[i]=u_0[i]-u_minus[i];
     }
     return delta_minus;
@@ -748,7 +700,7 @@ StateVector getDelta(const StateVector& u_minus,const StateVector& u_0, const St
 StateVector delta_minus = getDelta_minus(u_minus,u_0);
 StateVector delta_plus = getDelta_plus(u_0,u_plus);
 StateVector delta;
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
         delta[i]=0.5*(1+w)*delta_minus[i] + 0.5*(1-w)*delta_plus[i];
     }
     return delta;
@@ -762,7 +714,7 @@ StateVector get_r(const StateVector& u_minus,const StateVector& u_0, const State
     
     double min_r=2;   
     
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
     
         r[i]=delta_minus[i]/(delta_plus[i]+1e-12);
         if(r[i]<min_r && r[i] != 0.){
@@ -771,16 +723,14 @@ StateVector get_r(const StateVector& u_minus,const StateVector& u_0, const State
         
     }
     
-    // for(size_t i=0;i<9;i++){
-    //     r[i]=min_r;
-    //     }
+
         return r;
 }
 StateVector getXi_VL(StateVector r){
     //Van Leer slope limiting
     StateVector xi;
 
-    for(size_t i=0;i<9;i++){
+    for(size_t i=0;i<8;i++){
 
         if(r[i]<=0){
             xi[i]=0;
@@ -804,7 +754,7 @@ std::tuple< StateVector,StateVector  > calc_ubar(const StateVector& u_minus,cons
     StateVector r= get_r(prim_minus,prim_0,prim_plus,gamma);
     StateVector xi= getXi_VL(r);
     
-    for(size_t j=0;j<9;j++){
+    for(size_t j=0;j<8;j++){
         //Looping over variables
             ubar_L[j]=u_0[j]-0.5*xi[j]*delta[j];
             ubar_R[j]=u_0[j]+0.5*xi[j]*delta[j];
@@ -819,7 +769,7 @@ std::tuple< StateVector,StateVector > calc_ubarx_plus(const StateVector& u_minus
     StateVector ubar_R_plus;
     StateVector f_R= MHD_xflux(ubar_R,gamma,c_h);
     StateVector f_L= MHD_xflux(ubar_L,gamma,c_h);
-    for(size_t j=0;j<9;j++){//Looping over variables
+    for(size_t j=0;j<8;j++){//Looping over variables
             ubar_L_plus[j]= ubar_L[j]-0.5*dt/dx*(f_R[j]-f_L[j]);
             ubar_R_plus[j]= ubar_R[j]-0.5*dt/dx*(f_R[j]-f_L[j]);
             
@@ -834,7 +784,7 @@ std::tuple< StateVector,StateVector > calc_ubary_plus(const StateVector& u_minus
     StateVector ubar_R_plus;
     StateVector f_R= MHD_yflux(ubar_R,gamma,c_h);
     StateVector f_L= MHD_yflux(ubar_L,gamma,c_h);
-    for(size_t j=0;j<9;j++){//Looping over variables
+    for(size_t j=0;j<8;j++){//Looping over variables
             ubar_L_plus[j]= ubar_L[j]-0.5*dt/dx*(f_R[j]-f_L[j]);
             ubar_R_plus[j]= ubar_R[j]-0.5*dt/dx*(f_R[j]-f_L[j]);
             
@@ -965,14 +915,14 @@ int main(void){
         if(count%save_interval==0){
             std::string name= "Plot_" + std::to_string(t);
              //Output the data
-            std::string dir = "KelvinHelmholtz/";
+            std::string dir = "ResistivePlots/";
             save_to_file(u,x,num_xcells,y,num_ycells,gamma,dir,name);
         }
 
         update_bcs(u,num_xcells,num_ycells);
         
         double c_h= get_c_h(u,num_xcells,num_ycells,gamma); //Max across entirety of u, should be updated every time u is actually updated 
-        double c_p_squared=c_h*0.18;
+   
         double dt=computeTimeStep(dx,dy,C,c_h);
 
         t+=dt;
@@ -982,14 +932,8 @@ int main(void){
 
         //Do x updates first
         
-        //Do half time step source update for all psi
-        
-        for(size_t i=0; i<num_xcells+4; i++){
-            for(size_t j=0; j<num_ycells+4; j++){
 
-                u[i][j][8]*=std::exp((-dt/2)*(c_h*c_h)/c_p_squared);
-                }}
-        
+
         //First update the u_bar arrays to correspond to (x) flux for slope limiting
         auto [ubar_L_plusx,ubar_R_plusx] = get_ubar_plus_xarrays(u,w,dt,dx,gamma,num_xcells,num_ycells,c_h);
 
@@ -1005,7 +949,7 @@ int main(void){
         //Update all real cells using x flux
         for(size_t i=2; i<num_xcells+2; i++){
             for(size_t j=2; j<num_ycells+2; j++){
-                for(size_t k=0;k<9;k++){
+                for(size_t k=0;k<8;k++){
                 u[i][j][k]=u[i][j][k] - (dt/dx) * (flux_x[i][j][k]-flux_x[i-1][j][k]);
                 }
             }
@@ -1029,13 +973,9 @@ int main(void){
         //Update all real cells using y flux
         for(size_t i=2; i<num_xcells+2; i++){
             for(size_t j=2; j<num_ycells+2; j++){
-                for(size_t k=0;k<9;k++){
+                for(size_t k=0;k<8;k++){
                 u[i][j][k]=u[i][j][k] - (dt/dy) * (flux_y[i][j][k]-flux_y[i][j-1][k]);
                 }
-                
-                //Now do the second partial source update for psi
-               
-                u[i][j][8]*=std::exp(-dt*(c_h*c_h)/c_p_squared);
          
             }
         }
