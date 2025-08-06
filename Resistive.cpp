@@ -592,6 +592,10 @@ for(size_t i=2;i<num_xcells+2;i++){
 return sources;
 }
 
+StateVector RK4_update(StateVector u, const double dt_source){
+    
+}
+
 StateVector MHD_xflux(const StateVector& u0,const double gamma,const double c_h){
     //Prim: rho,v_x,v_y,v_z,p,B_x,B_y,B_z (B_x is const.)
     //Conserved: rho, mom_x, mom_y, mom_z, U, B_x, B_y, B_z
