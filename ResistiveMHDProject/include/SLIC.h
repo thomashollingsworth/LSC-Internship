@@ -13,19 +13,13 @@ void set_r_y(Grid& grid, const SimulationConfig& cfg);
 
 void do_VanLeerLimiting(Grid& grid, const SimulationConfig& cfg);
 
-void set_ubar_x(Grid& grid, const SimulationConfig& cfg);
+void set_ubar(Grid& grid, const SimulationConfig& cfg);
 
-void set_ubar_xflux(Grid& grid, const SimulationConfig& cfg);
+void set_ubar_flux(Grid& grid, const SimulationConfig& cfg);
 
-void set_ubar_xplus(Grid& grid, const SimulationConfig& cfg);
+void set_ubar_plus(Grid& grid, const SimulationConfig& cfg);
 
 void do_SLIC_xupdate(Grid& grid, const SimulationConfig& cfg);
-
-void set_ubar_y(Grid& grid, const SimulationConfig& cfg);
-
-void set_ubar_yflux(Grid& grid, const SimulationConfig& cfg);
-
-void set_ubar_yplus(Grid& grid, const SimulationConfig& cfg);
 
 void do_SLIC_yupdate(Grid& grid, const SimulationConfig& cfg);
 

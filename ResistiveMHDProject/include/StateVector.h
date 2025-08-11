@@ -40,7 +40,7 @@ struct StateVectorTemplate{
 
     //In place addition (vector and scalar)
     template<typename OtherDerived>
-    Derived& operator+=(const Vector3Template<OtherDerived>& other){
+    Derived& operator+=(const StateVectorTemplate<OtherDerived>& other){
         for(size_t i=0;i<9;i++){
         data[i]+=other[i];
     }
@@ -55,7 +55,7 @@ struct StateVectorTemplate{
     
     //In place subtraction (vector and scalar)
     template<typename OtherDerived>
-    Derived& operator-=(const Vector3Template<OtherDerived>& other){
+    Derived& operator-=(const StateVectorTemplate<OtherDerived>& other){
         for(size_t i=0;i<9;i++){
         data[i]-=other[i];
     }
@@ -172,6 +172,23 @@ SVT<DerivedL> operator-(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
     lhs-=rhs;
     return lhs;
 }
+//Element wise multiplication and division
+
+template<typename DerivedL, typename DerivedR>
+SVT<DerivedL> operator*(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
+    for(size_t i=0;i<rhs.data.size();i++){
+    lhs[i]*=rhs[i];}
+    return lhs;
+}
+
+template<typename DerivedL, typename DerivedR>
+SVT<DerivedL> operator/(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
+    for(size_t i=0;i<rhs.data.size();i++){
+    lhs[i]/=rhs[i];}
+    return lhs;
+}
+
+
 //Scalar multiplication and division
 
 template<typename Derived>
@@ -193,6 +210,29 @@ SVT<Derived> operator/(SVT<Derived> vector,const double scalar){
 template<typename Derived>
 SVT<Derived> operator/(const double scalar,SVT<Derived> vector){
     vector/=scalar;
+    return vector;
+}
+//Scalar broadcasting
+
+template<typename Derived>
+SVT<Derived> operator+(const double scalar,SVT<Derived> vector){
+    vector+=scalar;
+    return vector;
+}
+template<typename Derived>
+SVT<Derived> operator+(SVT<Derived> vector,const double scalar){
+    vector+=scalar;
+    return vector;
+}
+
+template<typename Derived>
+SVT<Derived> operator-(const double scalar,SVT<Derived> vector){
+    vector+=scalar;
+    return vector;
+}
+template<typename Derived>
+SVT<Derived> operator-(SVT<Derived> vector,const double scalar){
+    vector+=scalar;
     return vector;
 }
 
