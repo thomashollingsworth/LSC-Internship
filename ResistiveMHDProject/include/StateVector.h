@@ -161,37 +161,37 @@ using SVT=StateVectorTemplate<T>;
 
 
 //Vector addition and subtraction
-template<typename Output,typename DerivedL, typename DerivedR>
-SVT<Output> operator+(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
+template<typename DerivedL, typename DerivedR>
+SVT<DerivedL> operator+(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
     lhs+=rhs;
     return lhs;
 }
 
-template<typename Output,typename DerivedL, typename DerivedR>
-SVT<Output> operator-(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
+template<typename DerivedL, typename DerivedR>
+SVT<DerivedL> operator-(SVT<DerivedL> lhs,const SVT<DerivedR>& rhs){
     lhs-=rhs;
     return lhs;
 }
 //Scalar multiplication and division
 
-template<typename Output,typename Derived>
-SVT<Output> operator*(SVT<Derived> vector,const double scalar){
+template<typename Derived>
+SVT<Derived> operator*(SVT<Derived> vector,const double scalar){
     vector*=scalar;
     return vector;
 }
-template<typename Output,typename Derived>
-SVT<Output> operator*(const double scalar,SVT<Derived> vector){
+template<typename Derived>
+SVT<Derived> operator*(const double scalar,SVT<Derived> vector){
     vector*=scalar;
     return vector;
 }
 
-template<typename Output,typename Derived>
-SVT<Output> operator/(SVT<Derived> vector,const double scalar){
+template<typename Derived>
+SVT<Derived> operator/(SVT<Derived> vector,const double scalar){
     vector/=scalar;
     return vector;
 }
-template<typename Output,typename Derived>
-SVT<Output> operator/(const double scalar,SVT<Derived> vector){
+template<typename Derived>
+SVT<Derived> operator/(const double scalar,SVT<Derived> vector){
     vector/=scalar;
     return vector;
 }
