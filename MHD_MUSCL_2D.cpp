@@ -76,38 +76,38 @@ outfile<<"\n"; //Blank line between y rows for correct gnuplot formatting
 
 
 void update_bcs(std::vector<std::vector<StateVector > >& u,double num_xcells,double num_ycells){
-    // // Periodic 2D
-    // u[0]=u[num_xcells];
-    // u[1]=u[num_xcells+1];
-    // u[num_xcells+2]= u[2];
-    // u[num_xcells+3]= u[3];
-    // for(size_t i=0;i<num_xcells+4;i++){
-    //     //For every row set the four ghost cells
-    //     u[i][0]=u[i][num_ycells];
-    //     u[i][1]=u[i][num_ycells+1];
-    //     u[i][num_ycells+2]=u[i][2];
-    //     u[i][num_ycells+3] = u[i][3];
-
-    //Kelvin-Helmholtz Test (periodic left-right reflective top-bottom)
-    
+    // Periodic 2D
     u[0]=u[num_xcells];
     u[1]=u[num_xcells+1];
     u[num_xcells+2]= u[2];
     u[num_xcells+3]= u[3];
+    for(size_t i=0;i<num_xcells+4;i++){
+        //For every row set the four ghost cells
+        u[i][0]=u[i][num_ycells];
+        u[i][1]=u[i][num_ycells+1];
+        u[i][num_ycells+2]=u[i][2];
+        u[i][num_ycells+3] = u[i][3];
 
-    for (int i = 0; i < num_xcells + 2; ++i) {//reflect in u_y and B_y
-    u[i][0] = u[i][2];
-    u[i][1] = u[i][3]; // Bottom boundary
-    u[i][num_ycells + 2] = u[i][num_ycells];
-    u[i][num_ycells + 3] = u[i][num_ycells + 1]; // Top boundary
-    u[i][0][2] = -u[i][2][2];
-    u[i][0][6] = -u[i][2][6];
-    u[i][1][2] = -u[i][3][2];
-    u[i][1][6] = -u[i][3][6];
-    u[i][num_ycells + 2][2] = -u[i][num_ycells][2];
-    u[i][num_ycells + 2][6] = -u[i][num_ycells][6];
-    u[i][num_ycells + 3][2] = -u[i][num_ycells + 1][2];
-    u[i][num_ycells + 3][6] = -u[i][num_ycells + 1][6];
+    // //Kelvin-Helmholtz Test (periodic left-right reflective top-bottom)
+    
+    // u[0]=u[num_xcells];
+    // u[1]=u[num_xcells+1];
+    // u[num_xcells+2]= u[2];
+    // u[num_xcells+3]= u[3];
+
+    // for (int i = 0; i < num_xcells + 2; ++i) {//reflect in u_y and B_y
+    // u[i][0] = u[i][2];
+    // u[i][1] = u[i][3]; // Bottom boundary
+    // u[i][num_ycells + 2] = u[i][num_ycells];
+    // u[i][num_ycells + 3] = u[i][num_ycells + 1]; // Top boundary
+    // u[i][0][2] = -u[i][2][2];
+    // u[i][0][6] = -u[i][2][6];
+    // u[i][1][2] = -u[i][3][2];
+    // u[i][1][6] = -u[i][3][6];
+    // u[i][num_ycells + 2][2] = -u[i][num_ycells][2];
+    // u[i][num_ycells + 2][6] = -u[i][num_ycells][6];
+    // u[i][num_ycells + 3][2] = -u[i][num_ycells + 1][2];
+    // u[i][num_ycells + 3][6] = -u[i][num_ycells + 1][6];
 }
 
 
@@ -280,16 +280,16 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         // }
 
         
-        // //Orszang-Tang vortex test
-        // prim[0]=gamma*gamma;
-        // prim[1]=-std::sin(2*pi*y[j]);
-        // prim[2]=std::sin(2*pi*x[i]);
-        // prim[3]=0.;
-        // prim[4]=gamma;
-        // prim[5]=-std::sin(2*pi*y[j]);
-        // prim[6]=std::sin(4*pi*x[i]);
-        // prim[7]=0;
-        // prim[8]=0;
+        //Orszang-Tang vortex test
+        prim[0]=gamma*gamma;
+        prim[1]=-std::sin(2*pi*y[j]);
+        prim[2]=std::sin(2*pi*x[i]);
+        prim[3]=0.;
+        prim[4]=gamma;
+        prim[5]=-std::sin(2*pi*y[j]);
+        prim[6]=std::sin(4*pi*x[i]);
+        prim[7]=0;
+        prim[8]=0;
 
         // //Orszang-Tang vortex test
         // prim[0]=gamma*gamma;
@@ -302,16 +302,16 @@ std::vector<std::vector<StateVector > > set_u0(std::vector<double> x,std::vector
         // prim[7]=0;
         // prim[8]=0;
 
-        //Kelvin-Helmholtz
-        prim[0] = 1.0; // Density
-        prim[1] = 0.5*std::tanh(20*y[j]); // Velocity
-        prim[2] = 0.01*std::sin(2.0*pi*x[i])*std::exp(-y[j]*y[j]/(0.01));
-        prim[3] = 0.0;
-        prim[4] = 1.0 / gamma; // pressure
-        prim[5] = 0.1*std::cos(pi/3.0); // magnetic field
-        prim[6] = 0.0;
-        prim[7] = 0.1*std::sin(pi/3.0);
-        prim[8] = 0;
+        // //Kelvin-Helmholtz
+        // prim[0] = 1.0; // Density
+        // prim[1] = 0.5*std::tanh(20*y[j]); // Velocity
+        // prim[2] = 0.01*std::sin(2.0*pi*x[i])*std::exp(-y[j]*y[j]/(0.01));
+        // prim[3] = 0.0;
+        // prim[4] = 1.0 / gamma; // pressure
+        // prim[5] = 0.1*std::cos(pi/3.0); // magnetic field
+        // prim[6] = 0.0;
+        // prim[7] = 0.1*std::sin(pi/3.0);
+        // prim[8] = 0;
 
 
 
@@ -335,6 +335,8 @@ StateVector MHD_xflux(const StateVector& u0,double gamma,double c_h){
 
     flux[5]=u0[8];
     flux[8]=u0[5]*c_h*c_h;
+    // flux[5]=0;
+    // flux[8]=0;
     
     
     
@@ -358,13 +360,13 @@ StateVector MHD_yflux(const StateVector& u0,double gamma,double c_h){
     flux[4]=(u0[4]+prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[2]-(prim[1]*prim[5]+prim[2]*prim[6]+prim[3]*prim[7])*prim[6];
     flux[5]=-(prim[6]*prim[1]-prim[2]*prim[5]);
     flux[6]=u0[8];
+    // flux[6]=0;
     flux[7]=-(prim[6]*prim[3]-prim[2]*prim[7]);
     
     flux[8]=u0[6]*c_h*c_h;
+    // flux[8]=0;
     
     return flux;
-
-
 
 }
 
@@ -433,6 +435,11 @@ std::tuple< double, double > get_S_LR_y(const StateVector& u_L,const StateVector
 }
 
 StateVector get_u_HLL_x(const StateVector& u_L,const StateVector& u_R, double gamma,double c_h){
+    //uHLL states are an intermediate for solving the 7-wave part of the MHD equations
+    //Bx and psi are fixed at their tilde values at every step
+    //In theory the for loops would only update 7 of the values not all 9
+    //uHLL for Bx and psi would just also be the tilde values
+    
     auto [S_L,S_R]= get_S_LR_x(u_L,u_R,gamma);
 
     StateVector f_L=MHD_xflux(u_L,gamma, c_h);
@@ -440,7 +447,10 @@ StateVector get_u_HLL_x(const StateVector& u_L,const StateVector& u_R, double ga
     StateVector u_HLL;
 
     for(size_t i=0;i<9;i++){
+        //This performs an intermediate update for 7 parameters
+        //For Bx and psi since L and R vals are identical this just returns psi_HLL=psi_L=psi_R=psi_tilde
         u_HLL[i]=1/(S_R-S_L)*(S_R*u_R[i]-S_L*u_L[i]+f_L[i]-f_R[i]);
+        
     }
 
     if(S_L>=0){
@@ -502,8 +512,15 @@ StateVector get_u_star_x(const StateVector& u_L,const StateVector& u_R, double g
     double q_star= (prim_R[0]*prim_R[1]*(S_R-prim_R[1])-prim_L[0]*prim_L[1]*(S_L-prim_L[1])+prim_L[4]+0.5*(prim_L[5]*prim_L[5]+prim_L[6]*prim_L[6]+prim_L[7]*prim_L[7])-prim_R[4]-0.5*(prim_R[5]*prim_R[5]+prim_R[6]*prim_R[6]+prim_R[7]*prim_R[7])-prim_L[5]*prim_L[5]+prim_R[5]*prim_R[5])/(prim_R[0]*(S_R-prim_R[1])-prim_L[0]*(S_L-prim_L[1]));
     
     StateVector u_star;
-    
+
+    // Bx and psi decouple and can be handled exactly with a two wave solution with speeds, +-c_h 
+    // Bx and psi are always in the central region of the two wave system
+    //These solutions are given by the tilde values
+
     u_star[5]=u_HLL[5];
+    u_star[8]=psi_tilde;
+
+
     u_star[6]=u_HLL[6];
     u_star[7]=u_HLL[7];
 
@@ -519,7 +536,7 @@ StateVector get_u_star_x(const StateVector& u_L,const StateVector& u_R, double g
     
     u_star[4]=u[4]*(S-prim[1])/(S-q_star)+((p_star*q_star-(prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[1])-(u_star[5]*(prim_HLL[5]*prim_HLL[1]+prim_HLL[6]*prim_HLL[2]+prim_HLL[7]*prim_HLL[3])-prim[5]*(prim[5]*prim[1]+prim[6]*prim[2]+prim[7]*prim[3])))/(S-q_star);
 
-    u_star[8]=psi_tilde;
+    
     
     return u_star;
 }
@@ -553,8 +570,11 @@ StateVector get_u_star_y(const StateVector& u_L,const StateVector& u_R, double g
     
     StateVector u_star;
     
-    u_star[5]=u_HLL[5];
+
     u_star[6]=u_HLL[6];
+    u_star[8]=psi_tilde;
+    
+    u_star[5]=u_HLL[5];
     u_star[7]=u_HLL[7];
 
     //Calc. the momentum and density terms
@@ -567,7 +587,7 @@ StateVector get_u_star_y(const StateVector& u_L,const StateVector& u_R, double g
     double p_star= prim[0]*(S-prim[2])*(q_star-prim[2])+prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7])-prim[6]*prim[6]+u_star[6]*u_star[6];
     
     u_star[4]=u[4]*(S-prim[2])/(S-q_star)+((p_star*q_star-(prim[4]+0.5*(prim[5]*prim[5]+prim[6]*prim[6]+prim[7]*prim[7]))*prim[2])-(u_star[6]*(prim_HLL[5]*prim_HLL[1]+prim_HLL[6]*prim_HLL[2]+prim_HLL[7]*prim_HLL[3])-prim[6]*(prim[5]*prim[1]+prim[6]*prim[2]+prim[7]*prim[3])))/(S-q_star);
-    u_star[8]=psi_tilde;
+
     return u_star;
 }
 
@@ -606,6 +626,7 @@ std::tuple< double,double > get_xtilde_vals(const StateVector& uL, const StateVe
     
     double Bx_tilde = 0.5*(uL[5]+uR[5])-0.5*1./c_h*(uR[8]-uL[8]);
     double psi_tilde= 0.5*(uL[8]+uR[8])-c_h/2.*(uR[5]-uL[5]);
+    //These are the decoupled solutions to the 2D Riemann problem
     return {Bx_tilde,psi_tilde};
 
 }
@@ -620,15 +641,19 @@ std::tuple< double,double > get_ytilde_vals(const StateVector& uL, const StateVe
 
 StateVector get_HLLC_flux_x(StateVector u_L,StateVector u_R, double gamma,double c_h){
     //gets flux between L and R position
-    
-    
+    //Solve decoupled 2 wave system first
     auto[B_tilde,psi_tilde]=get_xtilde_vals(u_L,u_R,gamma,c_h);
-    auto [S_L,S_R]= get_S_LR_x(u_L,u_R,gamma);
 
+    //Now use B_tilde and x_tilde values as fixed parameters in solving the remaining 7 wave system
+    
     u_L[5]=B_tilde;
     u_R[5]=B_tilde;
     u_L[8] = psi_tilde;
 	u_R[8] = psi_tilde;
+    
+    auto [S_L,S_R]= get_S_LR_x(u_L,u_R,gamma);
+
+    
     
     
     StateVector f_L=MHD_xflux(u_L,gamma,c_h);
@@ -640,7 +665,7 @@ StateVector get_HLLC_flux_x(StateVector u_L,StateVector u_R, double gamma,double
     double q_star= u_starL[1]/u_starL[0];
     StateVector flux_out;
 
-    //Deciding what region/flux is being used
+    //Deciding what region/flux is being used 
     if(S_L>=0){
         flux_out=f_L;
 
@@ -683,10 +708,8 @@ StateVector get_HLLC_flux_y(StateVector u_L,StateVector u_R, double gamma,double
     u_R[6]=B_tilde;
     u_L[8] = psi_tilde;
 	u_R[8] = psi_tilde;
-    
-    
-    
-    
+
+
     StateVector f_L=MHD_yflux(u_L,gamma,c_h);
     StateVector f_R=MHD_yflux(u_R,gamma,c_h);
     StateVector u_starL=get_u_star_y(u_L,u_R,gamma,true,B_tilde,psi_tilde,S_L,S_R,c_h);
@@ -765,9 +788,9 @@ StateVector get_r(const StateVector& u_minus,const StateVector& u_0, const State
     for(size_t i=0;i<9;i++){
     
         r[i]=delta_minus[i]/(delta_plus[i]+1e-12);
-        if(r[i]<min_r && r[i] != 0.){
-            min_r=r[i];
-        }
+        // if(r[i]<min_r && r[i] != 0.){
+        //     min_r=r[i];
+        // }
         
     }
     
@@ -881,19 +904,19 @@ std::tuple< std::vector<std::vector<StateVector > >,std::vector<std::vector<Stat
 
 int main(void){
     
-    // //Orszang-Tang vortex test
-    // double C=0.8;
-    // double tEnd=1.1;
-    // double tStart=0;
-    // double x0=0;
-    // double xf=1;
-    // double y0=0;
-    // double yf=1;
-    // double num_xcells=256;
-    // double num_ycells=256;
-    // double gamma=5./3. ;
-    // double w=0;
-    // int save_interval=10;
+    //Orszang-Tang vortex test
+    double C=0.8;
+    double tEnd=1.1;
+    double tStart=0;
+    double x0=0;
+    double xf=1;
+    double y0=0;
+    double yf=1;
+    double num_xcells=256;
+    double num_ycells=256;
+    double gamma=5./3. ;
+    double w=0;
+    int save_interval=10;
 
     // // Shock Tube Test
     // double C=0.8;
@@ -910,19 +933,19 @@ int main(void){
     // int save_interval=10;
 
 
-    //Kelvin-Helmholtz test
-    double C=0.8;
-    double tEnd=20;
-    double tStart=0;
-    double x0=0;
-    double xf=1;
-    double y0=-1;
-    double yf=1;
-    double num_xcells=128;
-    double num_ycells=256;
-    double gamma=5./3. ;
-    double w=0;
-    int save_interval=50;
+    // //Kelvin-Helmholtz test
+    // double C=0.8;
+    // double tEnd=20;
+    // double tStart=0;
+    // double x0=0;
+    // double xf=1;
+    // double y0=-1;
+    // double yf=1;
+    // double num_xcells=128;
+    // double num_ycells=256;
+    // double gamma=5./3. ;
+    // double w=0;
+    // int save_interval=50;
 
 
     
@@ -965,7 +988,7 @@ int main(void){
         if(count%save_interval==0){
             std::string name= "Plot_" + std::to_string(t);
              //Output the data
-            std::string dir = "KelvinHelmholtz/";
+            std::string dir = "Test/";
             save_to_file(u,x,num_xcells,y,num_ycells,gamma,dir,name);
         }
 

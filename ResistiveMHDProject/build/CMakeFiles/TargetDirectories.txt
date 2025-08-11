@@ -1,0 +1,6 @@
+/Users/tomhollingsworth/Documents/LSC Internship/ResistiveMHDProject/build/CMakeFiles/mhd_solver.dir
+/Users/tomhollingsworth/Documents/LSC Internship/ResistiveMHDProject/build/CMakeFiles/edit_cache.dir
+/Users/tomhollingsworth/Documents/LSC Internship/ResistiveMHDProject/build/CMakeFiles/rebuild_cache.dir
+/Users/tomhollingsworth/Documents/LSC Internship/ResistiveMHDProject/build/math/CMakeFiles/math_module.dir
+/Users/tomhollingsworth/Documents/LSC Internship/ResistiveMHDProject/build/math/CMakeFiles/edit_cache.dir
+/Users/tomhollingsworth/Documents/LSC Internship/ResistiveMHDProject/build/math/CMakeFiles/rebuild_cache.dir
