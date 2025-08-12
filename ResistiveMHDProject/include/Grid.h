@@ -43,23 +43,29 @@ struct Grid{
     Array2D<ConservedStateVector> uBarL;
     Array2D<ConservedStateVector> uBarR;
 
+    Array2D<PrimitiveStateVector> primL;
+    Array2D<PrimitiveStateVector> primR;
+
     Array2D<StateVector> Delta;
     Array2D<StateVector> Chi;
     
     Array2D<StateVector> fluxL;
     Array2D<StateVector> fluxR;
+    Array2D<StateVector> fluxHLLD;
 
      //  - FOR MUSCL-HANCOCK SCHEME
     Array2D<double> c_fx;
     Array2D<double> c_fy;
     Array2D<double> c_fz;
-    
-    Array2D<double> S_L;
-    Array2D<double> S_R;
-    Array2D<double> S_M;
 
+    Array2D<ConservedStateVector> uStarL;
+    Array2D<ConservedStateVector> uStarR;
+    Array2D<ConservedStateVector> uDoubleStar;
+    
     double c_h;
     double dt;
+
+    void reset_intermediate_arrays();
 };
 
 

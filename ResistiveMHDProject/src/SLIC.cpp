@@ -23,15 +23,15 @@ void set_delta_y(Grid& grid, const SimulationConfig& cfg){
 
 
 void set_r_x(Grid& grid, const SimulationConfig& cfg){
+    //Slope limiting using primitive variables 
     size_t nx=grid.num_xcells;
     size_t ny=grid.num_ycells;
     size_t g=grid.ghost_cells;
     for(size_t i=1;i<nx+2*g-1;i++){
         for(size_t j=1;j<ny+2*g-1;j++){ 
             
-            grid.Chi(i,j)=StateVector((grid.U(i,j)- grid.U(i-1,j))/((grid.U(i+1,j)- grid.U(i,j))+1e-12));
-            
-            
+            grid.Chi(i,j)=StateVector((grid.Prim(i,j)- grid.Prim(i-1,j))/((grid.Prim(i+1,j)- grid.Prim(i,j))+1e-12));
+           
 }}}
 
 void set_r_y(Grid& grid, const SimulationConfig& cfg){
@@ -40,7 +40,7 @@ void set_r_y(Grid& grid, const SimulationConfig& cfg){
     size_t g=grid.ghost_cells;
     for(size_t i=1;i<nx+2*g-1;i++){
         for(size_t j=1;j<ny+2*g-1;j++){
-            grid.Chi(i,j)=StateVector((grid.U(i,j)- grid.U(i,j-1))/((grid.U(i,j+1)- grid.U(i,j))+1e-12));
+            grid.Chi(i,j)=StateVector((grid.Prim(i,j)- grid.Prim(i,j-1))/((grid.Prim(i,j+1)- grid.Prim(i,j))+1e-12));
             
             
 }}}
@@ -65,9 +65,8 @@ void set_ubar(Grid& grid, const SimulationConfig& cfg){
     size_t g=grid.ghost_cells;
     for(size_t i=1;i<nx+2*g-1;i++){
         for(size_t j=1;j<ny+2*g-1;j++){
-            grid.uBarL(i,j)*=0;//reset ubar arrays
-            grid.uBarR(i,j)*=0;
             grid.uBarL(i,j)+=grid.U(i,j);
+            grid.uBarR(i,j)+=grid.U(i,j);
             grid.uBarL(i,j)-=0.5*grid.Chi(i,j)*grid.Delta(i,j);
             grid.uBarR(i,j)+=0.5*grid.Chi(i,j)*grid.Delta(i,j);
 }}

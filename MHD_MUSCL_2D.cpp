@@ -732,8 +732,7 @@ StateVector get_HLLC_flux_y(StateVector u_L,StateVector u_R, double gamma,double
     }
 
 
-    flux_out[6]=psi_tilde;
-    flux_out[8]=B_tilde*c_h*c_h;
+
 
     // flux_out[6]=0;
     // flux_out[8]=0;
