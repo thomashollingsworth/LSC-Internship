@@ -166,6 +166,30 @@ src/Grid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/Grid.cpp.s
 .PHONY : src/Grid.cpp.s
 
+src/HLLD.o: src/HLLD.cpp.o
+.PHONY : src/HLLD.o
+
+# target to build an object file
+src/HLLD.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/HLLD.cpp.o
+.PHONY : src/HLLD.cpp.o
+
+src/HLLD.i: src/HLLD.cpp.i
+.PHONY : src/HLLD.i
+
+# target to preprocess a source file
+src/HLLD.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/HLLD.cpp.i
+.PHONY : src/HLLD.cpp.i
+
+src/HLLD.s: src/HLLD.cpp.s
+.PHONY : src/HLLD.s
+
+# target to generate assembly for a file
+src/HLLD.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/HLLD.cpp.s
+.PHONY : src/HLLD.cpp.s
+
 src/Initialise.o: src/Initialise.cpp.o
 .PHONY : src/Initialise.o
 
@@ -213,6 +237,30 @@ src/MHD_flux.s: src/MHD_flux.cpp.s
 src/MHD_flux.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/MHD_flux.cpp.s
 .PHONY : src/MHD_flux.cpp.s
+
+src/SLIC.o: src/SLIC.cpp.o
+.PHONY : src/SLIC.o
+
+# target to build an object file
+src/SLIC.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/SLIC.cpp.o
+.PHONY : src/SLIC.cpp.o
+
+src/SLIC.i: src/SLIC.cpp.i
+.PHONY : src/SLIC.i
+
+# target to preprocess a source file
+src/SLIC.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/SLIC.cpp.i
+.PHONY : src/SLIC.cpp.i
+
+src/SLIC.s: src/SLIC.cpp.s
+.PHONY : src/SLIC.s
+
+# target to generate assembly for a file
+src/SLIC.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/SLIC.cpp.s
+.PHONY : src/SLIC.cpp.s
 
 src/SavingRoutine.o: src/SavingRoutine.cpp.o
 .PHONY : src/SavingRoutine.o
@@ -262,6 +310,54 @@ src/StateVector.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/StateVector.cpp.s
 .PHONY : src/StateVector.cpp.s
 
+src/TimeStep.o: src/TimeStep.cpp.o
+.PHONY : src/TimeStep.o
+
+# target to build an object file
+src/TimeStep.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/TimeStep.cpp.o
+.PHONY : src/TimeStep.cpp.o
+
+src/TimeStep.i: src/TimeStep.cpp.i
+.PHONY : src/TimeStep.i
+
+# target to preprocess a source file
+src/TimeStep.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/TimeStep.cpp.i
+.PHONY : src/TimeStep.cpp.i
+
+src/TimeStep.s: src/TimeStep.cpp.s
+.PHONY : src/TimeStep.s
+
+# target to generate assembly for a file
+src/TimeStep.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/TimeStep.cpp.s
+.PHONY : src/TimeStep.cpp.s
+
+src/c_f.o: src/c_f.cpp.o
+.PHONY : src/c_f.o
+
+# target to build an object file
+src/c_f.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/c_f.cpp.o
+.PHONY : src/c_f.cpp.o
+
+src/c_f.i: src/c_f.cpp.i
+.PHONY : src/c_f.i
+
+# target to preprocess a source file
+src/c_f.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/c_f.cpp.i
+.PHONY : src/c_f.cpp.i
+
+src/c_f.s: src/c_f.cpp.s
+.PHONY : src/c_f.s
+
+# target to generate assembly for a file
+src/c_f.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/c_f.cpp.s
+.PHONY : src/c_f.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -286,6 +382,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/psi_source_term.o: src/psi_source_term.cpp.o
+.PHONY : src/psi_source_term.o
+
+# target to build an object file
+src/psi_source_term.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/psi_source_term.cpp.o
+.PHONY : src/psi_source_term.cpp.o
+
+src/psi_source_term.i: src/psi_source_term.cpp.i
+.PHONY : src/psi_source_term.i
+
+# target to preprocess a source file
+src/psi_source_term.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/psi_source_term.cpp.i
+.PHONY : src/psi_source_term.cpp.i
+
+src/psi_source_term.s: src/psi_source_term.cpp.s
+.PHONY : src/psi_source_term.s
+
+# target to generate assembly for a file
+src/psi_source_term.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mhd_solver.dir/build.make CMakeFiles/mhd_solver.dir/src/psi_source_term.cpp.s
+.PHONY : src/psi_source_term.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -299,21 +419,36 @@ help:
 	@echo "... src/Grid.o"
 	@echo "... src/Grid.i"
 	@echo "... src/Grid.s"
+	@echo "... src/HLLD.o"
+	@echo "... src/HLLD.i"
+	@echo "... src/HLLD.s"
 	@echo "... src/Initialise.o"
 	@echo "... src/Initialise.i"
 	@echo "... src/Initialise.s"
 	@echo "... src/MHD_flux.o"
 	@echo "... src/MHD_flux.i"
 	@echo "... src/MHD_flux.s"
+	@echo "... src/SLIC.o"
+	@echo "... src/SLIC.i"
+	@echo "... src/SLIC.s"
 	@echo "... src/SavingRoutine.o"
 	@echo "... src/SavingRoutine.i"
 	@echo "... src/SavingRoutine.s"
 	@echo "... src/StateVector.o"
 	@echo "... src/StateVector.i"
 	@echo "... src/StateVector.s"
+	@echo "... src/TimeStep.o"
+	@echo "... src/TimeStep.i"
+	@echo "... src/TimeStep.s"
+	@echo "... src/c_f.o"
+	@echo "... src/c_f.i"
+	@echo "... src/c_f.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/psi_source_term.o"
+	@echo "... src/psi_source_term.i"
+	@echo "... src/psi_source_term.s"
 .PHONY : help
 
 

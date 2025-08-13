@@ -851,4 +851,8 @@ CMakeFiles/mhd_solver.dir/src/Initialise.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/temp_value.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__split_buffer \
   /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/SimulationConfig.h \
-  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/BoundaryConditions.h
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/BoundaryConditions.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/istream \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ostream \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/bitset

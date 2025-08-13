@@ -877,4 +877,9 @@ CMakeFiles/mhd_solver.dir/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
-  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/MHD_flux.h
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/MHD_flux.h \
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/c_f.h \
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/TimeStep.h \
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/SLIC.h \
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/HLLD.h \
+  /Users/tomhollingsworth/Documents/LSC\ Internship/ResistiveMHDProject/include/psi_source_term.h

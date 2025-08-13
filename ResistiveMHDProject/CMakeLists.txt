@@ -18,6 +18,11 @@ add_executable(mhd_solver
     src/MHD_flux.cpp 
     src/SavingRoutine.cpp 
     src/StateVector.cpp 
+    src/SLIC.cpp
+    src/TimeStep.cpp
+    src/c_f.cpp
+    src/psi_source_term.cpp
+    src/HLLD.cpp
 )
 
 # Add the math module

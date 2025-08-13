@@ -1,6 +1,6 @@
 #include "Initialise.h"
 #include "BoundaryConditions.h"
-
+#include <iostream>
 
 void initialise(Grid& grid, SimulationConfig& cfg){
     using test=SimulationConfig::InitialCondition;
@@ -27,10 +27,10 @@ void initialise(Grid& grid, SimulationConfig& cfg){
     //______________________________________________________________________
     case test::BrioWu_x:
         //Boundary Conditions
-        cfg.bcs_x0=SimulationConfig::BoundaryCondition::Periodic;
-        cfg.bcs_xf=SimulationConfig::BoundaryCondition::Periodic;
-        cfg.bcs_y0=SimulationConfig::BoundaryCondition::Periodic;
-        cfg.bcs_yf=SimulationConfig::BoundaryCondition::Periodic;
+        cfg.bcs_x0=SimulationConfig::BoundaryCondition::Transimssive;
+        cfg.bcs_xf=SimulationConfig::BoundaryCondition::Transimssive;
+        cfg.bcs_y0=SimulationConfig::BoundaryCondition::Transimssive;
+        cfg.bcs_yf=SimulationConfig::BoundaryCondition::Transimssive;
         //Domain conditions
          x0=0.;
          xf=800.;
@@ -39,7 +39,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
          tf=80.;
         
         //Other parameters
-         gamma=2.;
+        gamma=2.;
 
         //Setting values
         cfg.t_end=tf;
@@ -47,16 +47,17 @@ void initialise(Grid& grid, SimulationConfig& cfg){
         
         //Initialising the x and y arrays
 
-         dx=(xf-x0)/nx;
+        dx=(xf-x0)/nx;
         grid.dx=dx;
         for(size_t i=0;i<nx;i++){
-            grid.x[i]=x0+0.5*(1+i)*dx;
+            grid.x[i]=x0+(0.5+i)*dx;
+            
         }
 
-         dy=(yf-y0)/nx;
+        dy=(yf-y0)/nx;
         grid.dy=dy;
         for(size_t i=0;i<ny;i++){
-            grid.y[i]=y0+0.5*(1+i)*dy;
+            grid.y[i]=y0+(0.5+i)*dy;
         }
 
         //Move from large x to small x with field
@@ -141,13 +142,15 @@ void initialise(Grid& grid, SimulationConfig& cfg){
          dx=(xf-x0)/nx;
         grid.dx=dx;
         for(size_t i=0;i<nx;i++){
-            grid.x[i]=x0+0.5*(1+i)*dx;
+            grid.x[i]=x0+(0.5+i)*dx;
+         
         }
+        
 
          dy=(yf-y0)/nx;
         grid.dy=dy;
         for(size_t i=0;i<ny;i++){
-            grid.y[i]=y0+0.5*(1+i)*dy;
+            grid.y[i]=y0+(0.5+i)*dy;
         }
 
         //Move from large x to small x with field
@@ -232,13 +235,13 @@ void initialise(Grid& grid, SimulationConfig& cfg){
          dx=(xf-x0)/nx;
         grid.dx=dx;
         for(size_t i=0;i<nx;i++){
-            grid.x[i]=x0+0.5*(1+i)*dx;
+            grid.x[i]=x0+(0.5+i)*dx;
         }
 
          dy=(yf-y0)/nx;
         grid.dy=dy;
         for(size_t i=0;i<ny;i++){
-            grid.y[i]=y0+0.5*(1+i)*dy;
+            grid.y[i]=y0+(0.5+i)*dy;
         }
 
         //Move from large x to small x with field
@@ -253,8 +256,8 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[4]=cfg.gamma;
             grid.Prim(i,j)[5]=-std::sin(2*pi*grid.y[j]);
             grid.Prim(i,j)[6]=std::sin(4*pi*grid.x[i]);
-            grid.Prim(i,j)[7]=0;
-            grid.Prim(i,j)[8]=0;
+            grid.Prim(i,j)[7]=0.;
+            grid.Prim(i,j)[8]=0.;
    
         grid.U(i,j)=grid.Prim(i,j).prim_to_con(cfg.gamma);}}
         
@@ -288,13 +291,13 @@ void initialise(Grid& grid, SimulationConfig& cfg){
          dx=(xf-x0)/nx;
         grid.dx=dx;
         for(size_t i=0;i<nx;i++){
-            grid.x[i]=x0+0.5*(1+i)*dx;
+            grid.x[i]=x0+(0.5+i)*dx;
         }
 
          dy=(yf-y0)/nx;
         grid.dy=dy;
         for(size_t i=0;i<ny;i++){
-            grid.y[i]=y0+0.5*(1+i)*dy;
+            grid.y[i]=y0+(0.5+i)*dy;
         }
 
         //Move from large x to small x with field
@@ -317,4 +320,5 @@ void initialise(Grid& grid, SimulationConfig& cfg){
         update_bcs(grid,cfg,grid.Prim);
         break;
 }
+grid.reset_intermediate_arrays();
 }

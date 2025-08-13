@@ -5,19 +5,19 @@
 #include "SimulationConfig.h"
 
 //Each step has its own dedicated function and then a single function collects all 
-void set_delta_x(Grid& grid, const SimulationConfig& cfg);
-void set_delta_y(Grid& grid, const SimulationConfig& cfg);
+void set_delta_x(Grid& grid);
+void set_delta_y(Grid& grid);
 
-void set_r_x(Grid& grid, const SimulationConfig& cfg);
-void set_r_y(Grid& grid, const SimulationConfig& cfg);
+void set_r_x(Grid& grid);
+void set_r_y(Grid& grid);
 
-void do_VanLeerLimiting(Grid& grid, const SimulationConfig& cfg);
+void do_VanLeerLimiting(Grid& grid);
 
-void set_ubar(Grid& grid, const SimulationConfig& cfg);
+void set_ubar(Grid& grid,const SimulationConfig& cfg);
 
-void set_ubar_xflux(Grid& grid, const SimulationConfig& cfg);
+void set_ubar_xflux(Grid& grid);
 
-void set_ubar_yflux(Grid& grid, const SimulationConfig& cfg);
+void set_ubar_yflux(Grid& grid);
 
 void set_ubar_plusx(Grid& grid, const SimulationConfig& cfg);
 

@@ -1,14 +1,14 @@
 #include "c_f.h"
 #include <cmath>
 
-using PSV=Array2D<PrimitiveStateVector>;
+using PSV=PrimitiveStateVector;
 
-void calc_cf_x(double gamma, double& output, const PrimitiveStateVector& p){
+void calc_cf_x(double gamma, double& output, const PSV& p){
     double factor= (gamma*p.pressure()+dot(p.B(),p.B()))/p.density();
     output=std::sqrt(0.5*(factor+std::sqrt(factor*factor-4.0*gamma*p.pressure()*p.B().x()*p.B().x()/(p.density()*p.density()))));
 }
 
-void set_cf_x(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
+void set_cf_x(Grid& grid, const SimulationConfig& cfg,const Array2D<PSV>& prim_array){
     size_t nx=grid.num_xcells;
     size_t ny=grid.num_ycells;
     size_t g=grid.ghost_cells;
@@ -19,12 +19,12 @@ void set_cf_x(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
 }
 
 
-void calc_cf_y(double gamma, double& output, const PrimitiveStateVector& p){
+void calc_cf_y(double gamma, double& output, const PSV& p){
     double factor= (gamma*p.pressure()+dot(p.B(),p.B()))/p.density();
     output=std::sqrt(0.5*(factor+std::sqrt(factor*factor-4.0*gamma*p.pressure()*p.B().y()*p.B().y()/(p.density()*p.density()))));
 }
 
-void set_cf_y(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
+void set_cf_y(Grid& grid, const SimulationConfig& cfg,const Array2D<PSV>& prim_array){
     size_t nx=grid.num_xcells;
     size_t ny=grid.num_ycells;
     size_t g=grid.ghost_cells;
@@ -35,12 +35,12 @@ void set_cf_y(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
 }
 
 
-void calc_cf_z(double gamma, double& output, const PrimitiveStateVector& p){
+void calc_cf_z(double gamma, double& output, const PSV& p){
     double factor= (gamma*p.pressure()+dot(p.B(),p.B()))/p.density();
     output=std::sqrt(0.5*(factor+std::sqrt(factor*factor-4.0*gamma*p.pressure()*p.B().z()*p.B().z()/(p.density()*p.density()))));
 }
 
-void set_cf_z(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
+void set_cf_z(Grid& grid, const SimulationConfig& cfg,const Array2D<PSV>& prim_array){
 
     size_t nx=grid.num_xcells;
     size_t ny=grid.num_ycells;
@@ -51,7 +51,7 @@ void set_cf_z(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
     }};
 }
 
-void set_c_h(Grid& grid, const SimulationConfig& cfg,const PSV& prim_array){
+void set_c_h(Grid& grid, const SimulationConfig& cfg,const Array2D<PSV>& prim_array){
     size_t nx=grid.num_xcells;
     size_t ny=grid.num_ycells;
     size_t g=grid.ghost_cells;
