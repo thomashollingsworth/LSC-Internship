@@ -16,7 +16,7 @@ struct SimulationConfig{
     };
 
     enum class BoundaryCondition{
-        Transimssive,
+        Transmissive,
         Periodic,
         Reflective
     };

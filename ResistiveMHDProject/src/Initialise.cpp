@@ -27,10 +27,10 @@ void initialise(Grid& grid, SimulationConfig& cfg){
     //______________________________________________________________________
     case test::BrioWu_x:
         //Boundary Conditions
-        cfg.bcs_x0=SimulationConfig::BoundaryCondition::Transimssive;
-        cfg.bcs_xf=SimulationConfig::BoundaryCondition::Transimssive;
-        cfg.bcs_y0=SimulationConfig::BoundaryCondition::Transimssive;
-        cfg.bcs_yf=SimulationConfig::BoundaryCondition::Transimssive;
+        cfg.bcs_x0=SimulationConfig::BoundaryCondition::Transmissive;
+        cfg.bcs_xf=SimulationConfig::BoundaryCondition::Transmissive;
+        cfg.bcs_y0=SimulationConfig::BoundaryCondition::Transmissive;
+        cfg.bcs_yf=SimulationConfig::BoundaryCondition::Transmissive;
         //Domain conditions
          x0=0.;
          xf=800.;
@@ -63,7 +63,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
         //Move from large x to small x with field
         for(size_t i=g; i<nx+g;i++){
         for(size_t j=g;j<ny+g;j++){
-        if(grid.x[i]<=400 && grid.y[j]<=400){
+        if(grid.x[i-g]<=400 && grid.y[j-g]<=400){
             //bottom left corner
             grid.Prim(i,j)[0]=0.125;
             grid.Prim(i,j)[1]=0.;
@@ -75,7 +75,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[7]=0.0;
             grid.Prim(i,j)[8]=0.;
         }
-        else if(grid.x[i]<=400 && grid.y[j]>400){
+        else if(grid.x[i-g]<=400 && grid.y[j-g]>400){
             //top left corner
             grid.Prim(i,j)[0]=0.125;
             grid.Prim(i,j)[1]=0.;
@@ -87,7 +87,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[7]=0.0;
             grid.Prim(i,j)[8]=0.;
         }
-        else if(grid.x[i]>400 && grid.y[j]<400){
+        else if(grid.x[i-g]>400 && grid.y[j-g]<400){
             //bottom right corner
             grid.Prim(i,j)[0]=1.;
             grid.Prim(i,j)[1]=0.;
@@ -99,7 +99,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[7]=0.;
             grid.Prim(i,j)[8]=0.;
             
-        }else if(grid.x[i]>400 && grid.y[j]>400){
+        }else if(grid.x[i-g]>400 && grid.y[j-g]>400){
             //top right corner
             grid.Prim(i,j)[0]=1.;
             grid.Prim(i,j)[1]=0.;
@@ -119,10 +119,10 @@ void initialise(Grid& grid, SimulationConfig& cfg){
     
     case test::BrioWu_y:
         //Boundary Conditions
-        cfg.bcs_x0=SimulationConfig::BoundaryCondition::Transimssive;
-        cfg.bcs_xf=SimulationConfig::BoundaryCondition::Transimssive;
-        cfg.bcs_y0=SimulationConfig::BoundaryCondition::Transimssive;
-        cfg.bcs_yf=SimulationConfig::BoundaryCondition::Transimssive;
+        cfg.bcs_x0=SimulationConfig::BoundaryCondition::Transmissive;
+        cfg.bcs_xf=SimulationConfig::BoundaryCondition::Transmissive;
+        cfg.bcs_y0=SimulationConfig::BoundaryCondition::Transmissive;
+        cfg.bcs_yf=SimulationConfig::BoundaryCondition::Transmissive;
         //Domain conditions
          x0=0.;
          xf=800.;
@@ -157,7 +157,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
         for(size_t i=g; i<nx+g;i++){
         for(size_t j=g;j<ny+g;j++){
         //Move from small y to large y with B field
-        if(grid.x[i]<=400 && grid.y[j]<=400){
+        if(grid.x[i-g]<=400 && grid.y[j-g]<=400){
             //bottom left corner
             grid.Prim(i,j)[0]=1.;
             grid.Prim(i,j)[1]=0.;
@@ -169,7 +169,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[7]=0.;
             grid.Prim(i,j)[8]=0.;
         }
-        else if(grid.x[i]<=400 && grid.y[j]>400){
+        else if(grid.x[i-g]<=400 && grid.y[j-g]>400){
             //top left corner
             grid.Prim(i,j)[0]=0.125;
             grid.Prim(i,j)[1]=0.;
@@ -181,7 +181,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[7]=0.0;
             grid.Prim(i,j)[8]=0.;
         }
-        else if(grid.x[i]>400 && grid.y[j]<400){
+        else if(grid.x[i-g]>400 && grid.y[j-g]<400){
             //bottom right corner
             grid.Prim(i,j)[0]=1.;
             grid.Prim(i,j)[1]=0.;
@@ -192,7 +192,7 @@ void initialise(Grid& grid, SimulationConfig& cfg){
             grid.Prim(i,j)[5]=1.;
             grid.Prim(i,j)[7]=0.;
             grid.Prim(i,j)[8]=0.;
-        }else if(grid.x[i]>400 && grid.y[j]>400){
+        }else if(grid.x[i-g]>400 && grid.y[j-g]>400){
             //top right corner
             grid.Prim(i,j)[0]=0.125;
             grid.Prim(i,j)[1]=0.;
@@ -250,12 +250,12 @@ void initialise(Grid& grid, SimulationConfig& cfg){
         for(size_t i=g; i<nx+g;i++){
         for(size_t j=g;j<ny+g;j++){
             grid.Prim(i,j)[0]=cfg.gamma*cfg.gamma;
-            grid.Prim(i,j)[1]=-std::sin(2*pi*grid.y[j]);
-            grid.Prim(i,j)[2]=std::sin(2*pi*grid.x[i]);
+            grid.Prim(i,j)[1]=-std::sin(2*pi*grid.y[j-g]);
+            grid.Prim(i,j)[2]=std::sin(2*pi*grid.x[i-g]);
             grid.Prim(i,j)[3]=0.;
             grid.Prim(i,j)[4]=cfg.gamma;
-            grid.Prim(i,j)[5]=-std::sin(2*pi*grid.y[j]);
-            grid.Prim(i,j)[6]=std::sin(4*pi*grid.x[i]);
+            grid.Prim(i,j)[5]=-std::sin(2*pi*grid.y[j-g]);
+            grid.Prim(i,j)[6]=std::sin(4*pi*grid.x[i-g]);
             grid.Prim(i,j)[7]=0.;
             grid.Prim(i,j)[8]=0.;
    
@@ -306,12 +306,12 @@ void initialise(Grid& grid, SimulationConfig& cfg){
         for(size_t i=g; i<nx+g;i++){
         for(size_t j=g;j<ny+g;j++){
             grid.Prim(i,j)[0]=cfg.gamma*cfg.gamma;
-            grid.Prim(i,j)[1]=-std::sin(2*pi*grid.y[j]);
-            grid.Prim(i,j)[2]=std::sin(2*pi*grid.x[i]);
+            grid.Prim(i,j)[1]=-std::sin(2*pi*grid.y[j-g]);
+            grid.Prim(i,j)[2]=std::sin(2*pi*grid.x[i-g]);
             grid.Prim(i,j)[3]=0.;
             grid.Prim(i,j)[4]=cfg.gamma;
-            grid.Prim(i,j)[5]=-std::sin(2*pi*grid.y[j]);
-            grid.Prim(i,j)[6]=std::sin(4*pi*grid.x[i]);
+            grid.Prim(i,j)[5]=-std::sin(2*pi*grid.y[j-g]);
+            grid.Prim(i,j)[6]=std::sin(4*pi*grid.x[i-g]);
             grid.Prim(i,j)[7]=0;
             grid.Prim(i,j)[8]=0;
         grid.U(i,j)=grid.Prim(i,j).prim_to_con(cfg.gamma);}}

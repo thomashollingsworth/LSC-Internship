@@ -28,7 +28,7 @@ void save_to_file(const Grid& grid, const SimulationConfig& cfg, size_t iteratio
     if(cfg.plot){
         if(iteration%cfg.plot_interval==0){
              //Output the data
-            std::string filename= "Plot_t_" + std::to_string(time);
+            std::string filename= "t_" + std::to_string(time);
             std::filesystem::create_directories(cfg.save_directory);
             filename=cfg.save_directory+"/"+filename;
             const size_t nx = grid.num_xcells;

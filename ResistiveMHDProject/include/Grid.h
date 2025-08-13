@@ -18,7 +18,8 @@
 struct Grid{
     
     size_t ghost_cells; //Won't realistically be changing 
-    size_t num_xcells,num_ycells;
+    size_t num_xcells;
+    size_t num_ycells;
 
     //Constructor
 

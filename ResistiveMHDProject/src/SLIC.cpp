@@ -51,8 +51,8 @@ void do_VanLeerLimiting(Grid& grid){
     size_t nx=grid.num_xcells;
     size_t ny=grid.num_ycells;
     size_t g=grid.ghost_cells;
-    for(size_t i=0;i<nx+2*g;i++){
-        for(size_t j=0;j<ny+2*g;j++){
+    for(size_t i=1;i<nx+2*g-1;i++){
+        for(size_t j=1;j<ny+2*g-1;j++){
             for(size_t k=0;k<9;k++){
                 if(grid.Chi(i,j)[k]<=0){
                 grid.Chi(i,j)[k]=0;} 

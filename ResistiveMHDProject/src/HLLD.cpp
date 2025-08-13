@@ -60,8 +60,8 @@ void set_u_bar(Grid& grid, const SimulationConfig& cfg){
     size_t ny=grid.num_ycells;
     size_t g=grid.ghost_cells;
     
-    for(size_t i=1;i<nx+2*g-1;i++){
-        for(size_t j=1;j<ny+2*g-1;j++){
+    for(size_t i=1;i<nx+2*g-2;i++){
+        for(size_t j=1;j<ny+2*g-2;j++){
             grid.uBarL(i,j)=grid.primL(i,j).prim_to_con(cfg.gamma);
             grid.uBarR(i,j)=grid.primR(i,j).prim_to_con(cfg.gamma);
 }}
@@ -94,8 +94,8 @@ std::tuple<double,double> calc_S_LR_x(const PrimitiveStateVector& pL,const Primi
     double c_fR;
     calc_cf_x(gamma, c_fL, pL);
     calc_cf_x(gamma, c_fR, pR);
-    double SL=std::min(pL.velocity().x()-c_fL,pR.velocity().x()-c_fR);
-   double SR=std::max(pL.velocity().x()+c_fL,pR.velocity().x()+c_fR);
+    double SL=std::min(pL.velocity().x(),pR.velocity().x())-std::max(c_fL,c_fR);
+   double SR=std::max(pL.velocity().x(),pR.velocity().x())-std::min(c_fL,c_fR);
    return{SL,SR};
 }
 
@@ -104,8 +104,8 @@ std::tuple<double,double> calc_S_LR_y(const PrimitiveStateVector& pL,const Primi
     double c_fR;
     calc_cf_y(gamma, c_fL, pL);
     calc_cf_y(gamma, c_fR, pR);
-    double SL=std::min(pL.velocity().y()-c_fL,pR.velocity().y()-c_fR);
-   double SR=std::max(pL.velocity().y()+c_fL,pR.velocity().y()+c_fR);
+    double SL=std::min(pL.velocity().y(),pR.velocity().y())-std::max(c_fL,c_fR);
+   double SR=std::max(pL.velocity().y(),pR.velocity().y())-std::min(c_fL,c_fR);
    return{SL,SR};
 }
 
@@ -145,22 +145,34 @@ return {S_starL,S_starR};
 }
 
 void calc_u_starLR_x(bool L,ConservedStateVector& output,const double S_M,const double S_L,const double S_R,const PrimitiveStateVector& pL,const PrimitiveStateVector& pR,double gamma){
+    double TOL=1e-8; //for detecting 0 denominator
     const PrimitiveStateVector& p = (L ? pL : pR);
     double S = (L ? S_L : S_R);
 
     output.density()=p.density()*(S-p.velocity().x())/(S-S_M);
     output.momentum().x()=output.density()*S_M;
-    
-    output.momentum().y()= output.density()*(p.velocity().y()-((S_M-p.velocity().x())*p.B().x()*p.B().y())/(p.density()*(S-p.velocity().x())*(S-S_M)-p.B().x()*p.B().x()));
-    output.momentum().z()= output.density()*(p.velocity().z()-((S_M-p.velocity().x())*p.B().x()*p.B().z())/(p.density()*(S-p.velocity().x())*(S-S_M)-p.B().x()*p.B().x()));
-    
+    //Check denominators
+    double vel_denom= (p.density()*(S-p.velocity().x())*(S-S_M)-p.B().x()*p.B().x());
+    if (vel_denom<TOL){
+        output.momentum().y()=output.density()*p.velocity().y();
+        output.momentum().z()=output.density()*p.velocity().z();
+    }
+    else{
+    output.momentum().y()= output.density()*(p.velocity().y()-((S_M-p.velocity().x())*p.B().x()*p.B().y())/vel_denom);
+    output.momentum().z()= output.density()*(p.velocity().z()-((S_M-p.velocity().x())*p.B().x()*p.B().z())/vel_denom);
+    }
     output.B().x()=p.B().x();
-    
-    output.B().y()=p.B().y()*(p.density()*(S-p.velocity().x())*(S-p.velocity().x())-p.B().x()*p.B().x())/(p.density()*(S-p.velocity().x())*(S-S_M)-p.B().x()*p.B().x());
-    output.B().z()=p.B().z()*(p.density()*(S-p.velocity().x())*(S-p.velocity().x())-p.B().x()*p.B().x())/(p.density()*(S-p.velocity().x())*(S-S_M)-p.B().x()*p.B().x());
-    
-    
 
+    double B_denom=(p.density()*(S-p.velocity().x())*(S-S_M)-p.B().x()*p.B().x());
+    if (B_denom<TOL){
+        output.B().y()=0.;
+        output.B().z()=0.;
+    }
+    else{
+    output.B().y()=p.B().y()*(p.density()*(S-p.velocity().x())*(S-p.velocity().x())-p.B().x()*p.B().x())/B_denom;
+    output.B().z()=p.B().z()*(p.density()*(S-p.velocity().x())*(S-p.velocity().x())-p.B().x()*p.B().x())/B_denom;
+    }
+    
     double p_T_star=((S_R-pR.velocity().x())*pR.density()*pL.pressure_T()-(S_L-pL.velocity().x())*pL.density()*pR.pressure_T()+pL.density()*pR.density()*(S_R-pR.velocity().x())*(S_L-pL.velocity().x())*(pR.velocity().x()-pL.velocity().x()))/((S_R-pR.velocity().x())*pR.density()-(S_L-pL.velocity().x())*pL.density());
     //Intermediate step for convenience
     double E=p.pressure()/(gamma-1)+0.5*p.density()*dot(p.velocity(),p.velocity())+ 0.5* dot(p.B(),p.B());
@@ -171,21 +183,33 @@ void calc_u_starLR_x(bool L,ConservedStateVector& output,const double S_M,const 
 }
 
 void calc_u_starLR_y(bool L,ConservedStateVector& output,const double S_M,const double S_L,const double S_R,const PrimitiveStateVector& pL,const PrimitiveStateVector& pR,double gamma){
+    double TOL=1e-8; //for detecting 0 denominator
     const PrimitiveStateVector& p = (L ? pL : pR);
     double S = (L ? S_L : S_R);
 
     output.density()=p.density()*(S-p.velocity().y())/(S-S_M);
     output.momentum().y()=output.density()*S_M;
     
-    output.momentum().x()= output.density()*(p.velocity().x()-((S_M-p.velocity().y())*p.B().y()*p.B().x())/(p.density()*(S-p.velocity().y())*(S-S_M)-p.B().y()*p.B().y()));
-    output.momentum().z()= output.density()*(p.velocity().z()-((S_M-p.velocity().y())*p.B().y()*p.B().z())/(p.density()*(S-p.velocity().y())*(S-S_M)-p.B().y()*p.B().y()));
-    
+    double vel_denom= (p.density()*(S-p.velocity().y())*(S-S_M)-p.B().y()*p.B().y());
+    if (vel_denom<TOL){
+        output.momentum().x()=output.density()*p.velocity().x();
+        output.momentum().z()=output.density()*p.velocity().z();
+    }
+    else{
+    output.momentum().x()= output.density()*(p.velocity().x()-((S_M-p.velocity().y())*p.B().y()*p.B().x())/vel_denom);
+    output.momentum().z()= output.density()*(p.velocity().z()-((S_M-p.velocity().y())*p.B().y()*p.B().z())/vel_denom);
+    }
     output.B().y()=p.B().y();
-    
-    output.B().x()=p.B().x()*(p.density()*(S-p.velocity().y())*(S-p.velocity().y())-p.B().y()*p.B().y())/(p.density()*(S-p.velocity().y())*(S-S_M)-p.B().y()*p.B().y());
-    output.B().z()=p.B().z()*(p.density()*(S-p.velocity().y())*(S-p.velocity().y())-p.B().y()*p.B().y())/(p.density()*(S-p.velocity().y())*(S-S_M)-p.B().y()*p.B().y());
-    
-    
+
+    double B_denom=(p.density()*(S-p.velocity().y())*(S-S_M)-p.B().y()*p.B().y());
+    if (B_denom<TOL){
+        output.B().x()=0.;
+        output.B().z()=0.;
+    }
+    else{
+    output.B().x()=p.B().x()*(p.density()*(S-p.velocity().y())*(S-p.velocity().y())-p.B().y()*p.B().y())/B_denom;
+    output.B().z()=p.B().z()*(p.density()*(S-p.velocity().y())*(S-p.velocity().y())-p.B().y()*p.B().y())/B_denom;
+    }
 
     double p_T_star=((S_R-pR.velocity().y())*pR.density()*pL.pressure_T()-(S_L-pL.velocity().y())*pL.density()*pR.pressure_T()+pL.density()*pR.density()*(S_R-pR.velocity().y())*(S_L-pL.velocity().y())*(pR.velocity().y()-pL.velocity().y()))/((S_R-pR.velocity().y())*pR.density()-(S_L-pL.velocity().y())*pL.density());
     //Intermediate step for convenience
@@ -274,7 +298,7 @@ void calc_HLLD_flux_x(StateVector& flux_out,const StateVector& flux_L,const Stat
 
         }else{
             region=Region::R_star;
-            calc_u_starLR_x(true,u_starR,S_M,S_L,S_R,pL,pR,gamma);
+            calc_u_starLR_x(false,u_starR,S_M,S_L,S_R,pL,pR,gamma);
 
         }
     }
@@ -335,7 +359,7 @@ void calc_HLLD_flux_y(StateVector& flux_out,const StateVector& flux_L,const Stat
 
         }else{
             region=Region::R_star;
-            calc_u_starLR_y(true,u_starR,S_M,S_L,S_R,pL,pR,gamma);
+            calc_u_starLR_y(false,u_starR,S_M,S_L,S_R,pL,pR,gamma);
 
         }
     }
@@ -360,7 +384,6 @@ void calc_HLLD_flux_y(StateVector& flux_out,const StateVector& flux_L,const Stat
         break;
     }  
 }
-
 
 void do_HLLD_x_update(Grid& grid, const SimulationConfig& cfg){
     //Starting with ubarplus states after SLIC method

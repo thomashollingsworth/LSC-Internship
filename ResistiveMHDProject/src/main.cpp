@@ -9,16 +9,17 @@
 #include "HLLD.h"
 #include "psi_source_term.h"
 #include <iostream>
+#include "BoundaryConditions.h"
 
 
 
 int main() {
 //Grid will hold all 2D arrays and data for intermediate values
-Grid grid(256,256);
+Grid grid(100,100);
 //Simulation config is used to control parameters of the test
 SimulationConfig cfg;
-cfg.save_interval=10;
-cfg.plot_interval=20;
+cfg.save_interval=1;
+cfg.plot_interval=1;
 cfg.save_directory="TRIAL";
 
 cfg.initialcondition= SimulationConfig::InitialCondition::BrioWu_x;
@@ -28,19 +29,33 @@ cfg.initialcondition= SimulationConfig::InitialCondition::BrioWu_x;
 initialise(grid,cfg);
 std::cout<<"Initialised"<<std::endl;
 double time=0;
-double iteration=0;
+double iteration=1;
 
 do{
+    
     get_time_step(grid,cfg);
+    save_to_file(grid,cfg,iteration,time);
+    
     time+=grid.dt;
-
     iteration+=1;
     
-    save_to_file(grid,cfg,iteration,time);
+    
 
     //do_half_psi_update(grid,cfg);
     
-    do_SLIC_xupdate(grid,cfg);
+    //do_SLIC_xupdate(grid,cfg);
+    
+    size_t nx=grid.num_xcells;
+    size_t ny=grid.num_ycells;
+    size_t g=grid.ghost_cells;
+    for(size_t i=1;i<nx+2*g-1;i++){
+        for(size_t j=1;j<ny+2*g-1;j++){
+
+            grid.uBarL(i,j)=grid.U(i,j);
+            grid.uBarR(i,j)=grid.U(i,j);
+
+        }}
+
 
     do_HLLD_x_update(grid,cfg);
 

@@ -29,8 +29,8 @@ const double& PSV::psi() const   {return this->data[8];}
 const double& CSV::psi() const   {return this->data[8];}
 
 
-double PSV::pressure_T(){return this->data[4] + dot(B(),B()); }
-double PSV::pressure_T() const {return this->data[4] + dot(B(),B()); }
+double PSV::pressure_T(){return this->data[4] + 0.5*dot(B(),B()); }
+double PSV::pressure_T() const {return this->data[4] + 0.5*dot(B(),B()); }
 
 
 //Accessing vector quantities by name

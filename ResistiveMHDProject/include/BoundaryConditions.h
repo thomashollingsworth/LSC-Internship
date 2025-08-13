@@ -22,9 +22,9 @@ void update_bcs(Grid& grid, const SimulationConfig& cfg, Array2D<T>& array){
             array(1,j)=array(nx+1,j);
         }
         break;
-        case BCs::Transimssive:
+        case BCs::Transmissive:
         for(size_t j=0;j<(ny+2*g);j++){
-            array(0,j)=array(g+1,j);
+            array(0,j)=array(g,j);
             array(1,j)=array(g,j);
         }
         break;
@@ -47,17 +47,17 @@ void update_bcs(Grid& grid, const SimulationConfig& cfg, Array2D<T>& array){
             break;
         }
 
-        switch (cfg.bcs_xf) {
+    switch (cfg.bcs_xf) {
         case BCs::Periodic:
             for (size_t j = 0; j < ny + 2*g; j++) {
                 array(nx + g,     j) = array(g, j);
                 array(nx + g + 1, j) = array(g + 1, j);
             }
             break;
-        case BCs::Transimssive:
+        case BCs::Transmissive:
             for (size_t j = 0; j < ny + 2*g; j++) {
                 array(nx + g,     j) = array(nx + g - 1, j);
-                array(nx + g + 1, j) = array(nx + g - 2, j);
+                array(nx + g + 1, j) = array(nx + g - 1, j);
             }
             break;
         case BCs::Reflective:
@@ -88,9 +88,9 @@ void update_bcs(Grid& grid, const SimulationConfig& cfg, Array2D<T>& array){
             array(i,1)=array(i,ny+1);
         }
         break;
-        case BCs::Transimssive:
+        case BCs::Transmissive:
         for(size_t i=0;i<(nx+2*g);i++){
-            array(i,0)=array(i,g+1);
+            array(i,0)=array(i,g);
             array(i,1)=array(i,g);
         }
         break;
@@ -113,17 +113,17 @@ void update_bcs(Grid& grid, const SimulationConfig& cfg, Array2D<T>& array){
             break;
         }
 
-        switch (cfg.bcs_yf) {
+    switch (cfg.bcs_yf) {
         case BCs::Periodic:
             for (size_t i = 0; i < nx + 2*g; i++) {
                 array(i,ny+g) = array(i,g);
                 array(i,ny + g + 1) = array(i,g+1);
             }
             break;
-        case BCs::Transimssive:
+        case BCs::Transmissive:
             for (size_t i = 0; i < nx + 2*g; i++) {
                 array(i,ny+g) = array(i,ny+g-1);
-                array(i,ny+g+1) = array(i,ny+g-2);
+                array(i,ny+g+1) = array(i,ny+g-1);
             }
             break;
         case BCs::Reflective:

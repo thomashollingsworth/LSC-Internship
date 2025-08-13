@@ -65,9 +65,9 @@ void set_c_h(Grid& grid, const SimulationConfig& cfg,const Array2D<PSV>& prim_ar
         for(size_t j=0;j<ny+2*g;j++){
 
         double new_max=std::max({
-            std::abs(prim_array(i,j).velocity().x())+grid.c_fx(i,j),
-            std::abs(prim_array(i,j).velocity().y())+grid.c_fy(i,j),
-            std::abs(prim_array(i,j).velocity().z())+grid.c_fz(i,j)});
+            std::fabs(prim_array(i,j).velocity().x())+grid.c_fx(i,j),
+            std::fabs(prim_array(i,j).velocity().y())+grid.c_fy(i,j),
+            std::fabs(prim_array(i,j).velocity().z())+grid.c_fz(i,j)});
 
             if(new_max> max_ch){
             max_ch=new_max;
